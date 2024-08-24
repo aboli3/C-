@@ -31,6 +31,39 @@ void inorder_tr(Node* root)
     curr=curr->right;
   }  
 }
+
+void postOrderTraversal(TreeNode* root) {
+    if (root == nullptr) return;
+
+    stack<TreeNode*> s1, s2;
+
+    // Push the root to the first stack
+    s1.push(root);
+
+    // Run while the first stack is not empty
+    while (!s1.empty()) {
+        // Pop an element from s1 and push it to s2
+        TreeNode* node = s1.top();
+        s1.pop();
+        s2.push(node);
+
+        // Push the left and right children of the popped node to s1
+        if (node->left) {
+            s1.push(node->left);
+        }
+        if (node->right) {
+            s1.push(node->right);
+        }
+    }
+
+    // Now, print all elements in s2 (they are in post-order)
+    while (!s2.empty()) {
+        TreeNode* node = s2.top();
+        s2.pop();
+        cout << node->val << " ";
+    }
+}
+
 int main(){
 
   Node* root = new Node(25);
